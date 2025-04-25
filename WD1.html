@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LifeStream Blood Donation</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    /* Color Combo Utility Classes */
+    .first-color { background: #be3144; }
+    .second-color { background: #3a4750; }
+    .third-color { background: #303841; }
+    .fourth-color { background: #be3144; }
+
+    /* Variables */
+    :root {
+      --ruler: 16px;
+      --color-red: #AE1100;
+      --color-bg: #EBECF0;
+      --color-shadow: #BABECC;
+      --color-white: #FFFFFF;
+      --gradient-start: #be3144;
+      --gradient-end: #3a4750;
+      --blood-gradient: linear-gradient(135deg, #be3144, #e03a3e);
+      --duration: 0.6s;
+    }
+    /* Base Reset */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      font-size: var(--ruler);
+      background: var(--color-bg);
+      color: var(--color-shadow);
+      perspective: 1200px;
+      overflow-x: hidden;
+    }
+    a { text-decoration: none; color: inherit; }
+    .container { width: 90%; max-width: 1200px; margin: auto; }
+
+    /* Header */
+    header {
+      background: var(--blood-gradient);
+      color: #fff; padding: 1rem;
+      position: sticky; top: 0; z-index: 100;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+    }
+    header .container { display: flex; align-items: center; justify-content: space-between; }
+    header h1 { font-size: 2.2rem; font-weight: 800; text-shadow: 2px 2px 6px rgba(0,0,0,0.4); }
+    nav ul { list-style: none; display: flex; gap: 1rem; }
+    nav ul li a {
+      padding: 0.5rem 1rem; border-radius: 0.5rem;
+      transition: background var(--duration), transform var(--duration);
+      font-weight: 600;
+      backface-visibility: hidden;
+    }
+    nav ul li a:hover {
+      background: rgba(255,255,255,0.2);
+      transform: translateY(-2px) rotateX(3deg);
+    }
+
+    /* Hero */
+    .hero {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.hero-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+  opacity: 0.5; /* You can adjust this */
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4); /* Optional: for contrast */
+  z-index: 2;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 3;
+  color: #bd0101;
+  padding: 2rem;
+  max-width: 800px;
+}
+    .hero-content h2 {
+      font-size: 3rem; margin-bottom: 1rem;
+      animation: float 6s ease-in-out infinite;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+    }
+    @keyframes float {
+      0%,100% { transform: translateY(0) rotateX(0); }
+      50% { transform: translateY(-12px) rotateX(10deg); }
+    }
+    .hero-content p {
+      font-size: 1.25rem; margin-bottom: 1.5rem;
+      text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
+    }
+    .hero-btn {
+      background: #ffd700; color: var(--gradient-end);
+      padding: 0.75rem 2rem; border:none; border-radius:1rem;
+      font-weight:700; cursor:pointer;
+      transition: transform 0.3s;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+    }
+    .hero-btn:hover { transform: scale(1.08) rotateX(5deg); }
+
+    /* Section Titles */
+    section { padding: 3rem 0; }
+    section h3 {
+      text-align:center; font-size:2rem; margin-bottom:2rem;
+      color:var(--gradient-end);
+      text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+    }
+    section h3::after {
+      content:''; display:block; width:60px; height:4px;
+      background: #ffd700; margin:0.5rem auto 0; border-radius:2px;
+    }
+
+    /* Mission */
+    #mission { background: var(--color-bg); }
+    #mission p {
+      max-width:800px; margin:auto; color:#555;
+      font-size:1.1rem; text-align:center;
+    }
+
+    /* Dynamic Flip‐Card Styles */
+    .steps { display:grid; grid-template-columns: repeat(auto-fit,minmax(240px,1fr)); gap:2rem; }
+    .card { perspective: 1000px; }
+    .card-inner {
+      position: relative; width:100%; height:300px;
+      transform-style: preserve-3d;
+      transition: transform var(--duration) ease, box-shadow var(--duration) ease;
+    }
+    .card:hover .card-inner {
+      animation: jumpFlip var(--duration) forwards;
+    }
+    @keyframes jumpFlip {
+      0%   { transform: none; }
+      30%  { transform: translateY(-15px); }
+      100% { transform: translateY(-15px) rotateY(180deg); }
+    }
+    .card-face {
+      position:absolute; width:100%; height:100%;
+      backface-visibility:hidden;
+      border-radius:1rem;
+      box-shadow:
+        0 8px 16px rgba(0,0,0,0.1),
+        inset -2px -2px 6px rgba(255,255,255,0.8);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex-direction:column;
+      padding:1rem; background:#fff;
+    }
+    .card-front img {
+      width:80px;
+      filter: drop-shadow(2px 4px 2px rgba(0,0,0,0.2));
+    }
+    .card-back { transform: rotateY(180deg); }
+    .card-back h4 { margin-bottom:1rem; color:var(--gradient-start); }
+    .card-back p  { color:#666; text-align:center; }
+
+    /* Recent Donors */
+    #recent { background: var(--third-color); color: #fff; }
+    #donor-list { list-style: none; max-width:400px; margin:auto; padding:0; }
+    #donor-list li {
+      background: rgba(255,255,255,0.1);
+      margin: 0.5rem 0; padding:0.75rem 1rem; border-radius:0.5rem;
+      display:flex; justify-content:space-between;
+    }
+
+    /* Registration Form */
+    #register { background: var(--fourth-color); }
+    .register-form {
+      background: var(--color-bg); padding: var(--ruler);
+      max-width:360px; margin:auto; border-radius:var(--ruler);
+      box-shadow:
+        inset 2px 2px 5px var(--color-shadow),
+        inset -5px -5px 10px var(--color-white),
+        0 8px 16px rgba(0,0,0,0.1);
+      perspective:800px; transform-style:preserve-3d;
+    }
+    .register-form:hover { transform: rotateY(5deg) scale(1.02); }
+    .register-form label { display:block; margin-bottom:1rem; font-weight:600; color: var(--gradient-end); }
+    .register-form input,
+    .register-form select,
+    .register-form textarea {
+      width:100%; padding:1rem; margin-bottom:1.5rem; border:none; border-radius:360px;
+      background:var(--color-bg);
+      box-shadow:
+        inset 2px 2px 5px var(--color-shadow),
+        inset -5px -5px 10px var(--color-white);
+      transition:box-shadow 0.2s, transform 0.2s;
+    }
+    .register-form input:focus,
+    .register-form select:focus,
+    .register-form textarea:focus {
+      box-shadow:
+        inset 1px 1px 2px var(--color-shadow),
+        inset -1px -1px 2px var(--color-white);
+      transform: translateZ(2px);
+    }
+    .register-btn {
+      width:100%; padding:1rem; font-weight:600; color:var(--color-white);
+      background:var(--blood-gradient); border:none; border-radius:360px;
+      box-shadow:
+        -5px -5px 20px var(--color-white),
+        5px 5px 20px var(--color-shadow);
+      cursor:pointer; transition:box-shadow 0.2s, transform 0.2s;
+    }
+    .register-btn:hover {
+      box-shadow:
+        -2px -2px 5px var(--color-white),
+        2px 2px 5px var(--color-shadow);
+      transform: translateY(-2px);
+    }
+    .register-btn:active {
+      box-shadow:
+        inset 1px 1px 2px var(--color-shadow),
+        inset -1px -1px 2px var(--color-white);
+    }
+
+    /* Contact & Footer */
+    #contact p { text-align:center; color:#555; font-size:1rem; }
+    footer { background: var(--third-color); color:#aaa; text-align:center; padding:1.5rem; font-size:0.9rem; }
+    footer a { color: var(--color-red); font-weight:600; }
+
+    /* Back to Top */
+    #backToTop {
+      position: fixed; bottom:1rem; right:1rem;
+      background: var(--gradient-end); color:#fff;
+      border:none; padding:0.75rem; border-radius:50%;
+      cursor:pointer; display:none; box-shadow:0 4px 8px rgba(0,0,0,0.3);
+      transition:transform 0.3s;
+    }
+    #backToTop:hover { transform: translateY(-5px) rotateX(10deg); }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="first-color">
+    <div class="container">
+      <h1>LifeStream</h1>
+      <nav>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#mission">Mission</a></li>
+          <li><a href="#process">How It Works</a></li>
+          <li><a href="#register">Register</a></li>
+          <li><a href="#recent">Donors</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero second-color" id="home">
+    <video autoplay muted loop playsinline class="hero-video">
+      <source src="./136458-764399870.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <div class="hero-content container">
+      <h2>Donate Blood, Save Lives</h2>
+      <p>Your one pint can give three lives a second chance.</p>
+      <button class="hero-btn" onclick="scrollToSection('register')">Become a Donor</button>
+    </div>
+  </section>
+
+  <!-- Mission Section -->
+  <section class="container third-color" id="mission">
+    <h3>Our Mission</h3>
+    <p>LifeStream bridges the gap between blood donors and those in need by organizing drives, raising awareness, and building a supportive community.</p>
+  </section>
+
+  <!-- How It Works -->
+  <section class="container fourth-color" id="process">
+    <h3>How It Works</h3>
+    <div class="steps" id="steps"></div>
+  </section>
+
+  <!-- Recent Donors -->
+  <section class="container third-color" id="recent">
+    <h3>Recent Donors</h3>
+    <ul id="donor-list"></ul>
+  </section>
+
+  <!-- Register Form -->
+  <section class="container" id="register">
+    <h3>Become a Donor</h3>
+    <form class="register-form" onsubmit="handleRegistration(event)">
+      <label for="name">Full Name</label>
+      <input type="text" id="name" placeholder="Your Name" required>
+      <label for="email">Email Address</label>
+      <input type="email" id="email" placeholder="you@example.com" required>
+      <label for="phone">Phone Number</label>
+      <input type="tel" id="phone" placeholder="123-456-7890" required>
+      <label for="blood">Blood Type</label>
+      <select id="blood" required>
+        <option value="">Select Type</option>
+        <option>A+</option><option>A-</option><option>B+</option><option>B-</option>
+        <option>AB+</option><option>AB-</option><option>O+</option><option>O-</option>
+      </select>
+      <label for="notes">Additional Notes</label>
+      <textarea id="notes" rows="3" placeholder="Any medical history or comments"></textarea>
+      <button type="submit" class="register-btn">Register Now</button>
+    </form>
+  </section>
+
+  <!-- Contact -->
+  <section class="container" id="contact">
+    <h3>Contact Us</h3>
+    <p>Questions? Email <a href="mailto:support@lifestream.org">support@lifestream.org</a> or call (123) 456-7890</p>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    &copy; <span id="year"></span> LifeStream. All Rights Reserved.
+  </footer>
+
+  <!-- Back to Top -->
+  <button id="backToTop" onclick="scrollToTop()">&uarr;</button>
+
+  <!-- Script -->
+  <script>
+    // Dynamic Steps
+    const stepsData = [
+      { icon: 'https://img.icons8.com/ios-filled/100/ff4c4c/user.png', title: 'Sign Up', desc: 'Register in minutes to join our donor network.', color: 'first-color' },
+      { icon: 'https://img.icons8.com/ios-filled/100/ff4c4c/calendar.png', title: 'Schedule', desc: 'Choose your donation time and location.', color: 'second-color' },
+      { icon: 'https://th.bing.com/th/id/R.1607ea4ac502cb5426941b13ee1366e5?rik=fHj5kFQlM1YJpQ&riu=http%3a%2f%2fwww.pngmart.com%2ffiles%2f7%2fBlood-Donation-Transparent-Background.png&ehk=m%2bF%2fWpuajP0OXcU%2f%2f6eA%2fP%2fjoZLo9rDyU1thwvcDPxE%3d&risl=&pid=ImgRaw&r=0', title: 'Donate', desc: 'Visit the drive and donate safely under professional care.', color: 'third-color' },
+      { icon: 'https://img.icons8.com/ios-filled/100/ff4c4c/heart-with-pulse.png', title: 'Celebrate', desc: 'Feel proud—your donation helps up to three people.', color: 'fourth-color' }
+    ];
+    const stepsContainer = document.getElementById('steps');
+    stepsData.forEach(s => {
+      const card = document.createElement('div');
+      card.className = `card ${s.color}`;
+      card.innerHTML = `
+        <div class="card-inner">
+          <div class="card-face card-front">
+            <img src="${s.icon}" alt="${s.title}">
+          </div>
+          <div class="card-face card-back">
+            <h4>${s.title}</h4>
+            <p>${s.desc}</p>
+          </div>
+        </div>
+      `;
+      stepsContainer.appendChild(card);
+    });
+
+    // Render Recent Donors from localStorage
+    function renderDonors() {
+      const list = document.getElementById('donor-list');
+      list.innerHTML = '';
+      const donors = JSON.parse(localStorage.getItem('donors') || '[]');
+      donors.slice(-5).reverse().forEach(d => {
+        const li = document.createElement('li');
+        li.textContent = `${d.name} (${d.blood})`;
+        list.appendChild(li);
+      });
+    }
+
+    // Handle Form Submission
+    function handleRegistration(event) {
+      event.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const blood = document.getElementById('blood').value;
+      const notes = document.getElementById('notes').value.trim();
+
+      if (!name || !email || !phone || !blood) {
+        alert('Please fill all required fields.');
+        return;
+      }
+
+      const newDonor = { name, email, phone, blood, notes, date: new Date().toISOString() };
+      const donors = JSON.parse(localStorage.getItem('donors') || '[]');
+      donors.push(newDonor);
+      localStorage.setItem('donors', JSON.stringify(donors));
+      alert('Thank you for registering as a donor!');
+      event.target.reset();
+      renderDonors();
+      scrollToSection('recent');
+    }
+
+    // Scroll To Section
+    function scrollToSection(id) {
+      document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Scroll to Top
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Show/Hide Back to Top Button
+    const backBtn = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+      backBtn.style.display = window.scrollY > 300 ? 'block' : 'none';
+    });
+
+    // Set Footer Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+
+</body>
+</html>
