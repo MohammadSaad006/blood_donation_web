@@ -6,96 +6,73 @@
   <title>LifeStream Blood Donation</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
   <style>
-    /* Color Combo Utility Classes */
-    .first-color { background: #be3144; }
-    .second-color { background: #3a4750; }
-    .third-color { background: #303841; }
-    .fourth-color { background: #be3144; }
-
-    /* Variables */
+    /*— Color & Gradient Variables —*/
     :root {
-      --ruler: 16px;
-      --color-red: #AE1100;
-      --color-bg: #EBECF0;
-      --color-shadow: #BABECC;
-      --color-white: #FFFFFF;
-      --gradient-start: #be3144;
-      --gradient-end: #3a4750;
-      --blood-gradient: linear-gradient(135deg, #be3144, #e03a3e);
+      --first-color: #8A0303;                /* deep blood-red for header */
+      --second-color: rgba(0, 0, 0, 0.6);    /* overlay tint for video hero */
+      --third-color: #f6f3f3;                /* light off-white for content */
+      --fourth-color: #550000;               /* rich burgundy for register bg */
+      --blood-gradient: linear-gradient(135deg, #BE3144, #E03A3E);
+      --accent: #FFD700;                     /* gold accent */
+      --text-light: #FFFFFF;
+      --text-dark: #333333;
+      --shadow-light: rgba(255,255,255,0.8);
+      --shadow-dark: rgba(0,0,0,0.1);
       --duration: 0.6s;
+      --ruler: 16px;
     }
-    /* Base Reset */
+
+    /*— Reset & Base —*/
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
       font-family: 'Montserrat', sans-serif;
       font-size: var(--ruler);
-      background: var(--color-bg);
-      color: var(--color-shadow);
-      perspective: 1200px;
+      background: var(--third-color);
+      color: var(--text-dark);
       overflow-x: hidden;
     }
     a { text-decoration: none; color: inherit; }
     .container { width: 90%; max-width: 1200px; margin: auto; }
 
-    /* Header */
+    /*— Header —*/
     header {
       background: var(--blood-gradient);
-      color: #fff; padding: 1rem;
+      color: var(--text-light);
+      padding: 1rem 0;
       position: sticky; top: 0; z-index: 100;
-      box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+      box-shadow: 0 8px 16px var(--shadow-dark);
     }
-    header .container { display: flex; align-items: center; justify-content: space-between; }
-    header h1 { font-size: 2.2rem; font-weight: 800; text-shadow: 2px 2px 6px rgba(0,0,0,0.4); }
-    nav ul { list-style: none; display: flex; gap: 1rem; }
-    nav ul li a {
-      padding: 0.5rem 1rem; border-radius: 0.5rem;
-      transition: background var(--duration), transform var(--duration);
-      font-weight: 600;
-      backface-visibility: hidden;
-    }
-    nav ul li a:hover {
-      background: rgba(255,255,255,0.2);
-      transform: translateY(-2px) rotateX(3deg);
-    }
-
-    /* Hero */
-    .hero {
-  position: relative;
-  height: 100vh;
-  overflow: hidden;
+    header .container {
+      color: #8A0303;
   display: flex;
   align-items: center;
-  justify-content: center;
-  text-align: center;
+  justify-content: center; /* <-- Center LifeStream text */
 }
+    header h1 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.4);
+    }
 
-.hero-video {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: 1;
-  opacity: 0.5; /* You can adjust this */
-}
-
-.hero::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.4); /* Optional: for contrast */
-  z-index: 2;
-}
-
-.hero-content {
-  position: relative;
-  z-index: 3;
-  color: #bd0101;
-  padding: 2rem;
-  max-width: 800px;
-}
+    /*— Hero Section w/ Video —*/
+    .hero {
+      position: relative; height: 100vh; overflow: hidden;
+      display: flex; align-items: center; justify-content: center; text-align: center;
+    }
+    .hero-video {
+      position: absolute; top: 0; left: 0;
+      width: 100%; height: 100%; object-fit: cover;
+      z-index: 1; opacity: 0.6;
+    }
+    .hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: var(--second-color); z-index: 2;
+    }
+    .hero-content {
+      position: relative; z-index: 3;
+      color: var(--text-light); padding: 2rem; max-width: 800px;
+    }
     .hero-content h2 {
       font-size: 3rem; margin-bottom: 1rem;
       animation: float 6s ease-in-out infinite;
@@ -110,197 +87,278 @@
       text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
     }
     .hero-btn {
-      background: #ffd700; color: var(--gradient-end);
-      padding: 0.75rem 2rem; border:none; border-radius:1rem;
-      font-weight:700; cursor:pointer;
-      transition: transform 0.3s;
-      box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+      background: var(--accent); color: var(--first-color);
+      padding: 0.75rem 2rem; border: none; border-radius: 1rem;
+      font-weight: 700; cursor: pointer;
+      box-shadow: 0 6px 12px var(--shadow-dark);
+      transition: transform 0.3s, box-shadow 0.3s;
     }
-    .hero-btn:hover { transform: scale(1.08) rotateX(5deg); }
+    .hero-btn:hover {
+      transform: scale(1.08) rotateX(5deg);
+      box-shadow: 0 8px 16px var(--shadow-dark);
+    }
 
-    /* Section Titles */
+    /*— Section Titles —*/
     section { padding: 3rem 0; }
     section h3 {
-      text-align:center; font-size:2rem; margin-bottom:2rem;
-      color:var(--gradient-end);
+      text-align: center; font-size: 2rem; margin-bottom: 2rem;
+      color: var(--first-color);
       text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
     }
     section h3::after {
-      content:''; display:block; width:60px; height:4px;
-      background: #ffd700; margin:0.5rem auto 0; border-radius:2px;
+      content: ''; display: block; width: 60px; height: 4px;
+      background: var(--accent); margin: 0.5rem auto 0; border-radius: 2px;
     }
 
-    /* Mission */
-    #mission { background: var(--color-bg); }
+    /*— Mission —*/
     #mission p {
-      max-width:800px; margin:auto; color:#555;
-      font-size:1.1rem; text-align:center;
+      max-width: 800px; margin: auto; font-size: 1.1rem; color: #555;
+      text-align: center;
     }
 
-    /* Dynamic Flip‐Card Styles */
-    .steps { display:grid; grid-template-columns: repeat(auto-fit,minmax(240px,1fr)); gap:2rem; }
-    .card { perspective: 1000px; }
-    .card-inner {
-      position: relative; width:100%; height:300px;
+    /*— 3D Flip-Card Styles —*/
+    .card-container {
+      display: flex; flex-wrap: wrap; justify-content: center;
+      gap: 20px; margin-top: 40px;
+    }
+    .flip-card {
+      background: transparent;
+      width: 280px; height: 300px;
+      perspective: 1000px;
+      cursor: pointer;
+    }
+    .flip-card-inner {
+      position: relative;
+      width: 100%; height: 100%;
+      text-align: center;
+      transition: transform var(--duration);
       transform-style: preserve-3d;
-      transition: transform var(--duration) ease, box-shadow var(--duration) ease;
     }
-    .card:hover .card-inner {
-      animation: jumpFlip var(--duration) forwards;
+    .flip-card.flipped .flip-card-inner,
+    .flip-card:hover .flip-card-inner {
+      transform: rotateY(180deg);
     }
-    @keyframes jumpFlip {
-      0%   { transform: none; }
-      30%  { transform: translateY(-15px); }
-      100% { transform: translateY(-15px) rotateY(180deg); }
+    .flip-card-front,
+    .flip-card-back {
+      position: absolute; width: 100%; height: 100%;
+      backface-visibility: hidden;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      display: flex; align-items: center; justify-content: center;
+      padding: 20px;
+      flex-direction: column;
     }
-    .card-face {
-      position:absolute; width:100%; height:100%;
-      backface-visibility:hidden;
-      border-radius:1rem;
-      box-shadow:
-        0 8px 16px rgba(0,0,0,0.1),
-        inset -2px -2px 6px rgba(255,255,255,0.8);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      flex-direction:column;
-      padding:1rem; background:#fff;
+    .flip-card-front {
+      background-size: cover;
+      background-position: center;
+      color: var(--text-light);
+      
     }
-    .card-front img {
-      width:80px;
-      filter: drop-shadow(2px 4px 2px rgba(0,0,0,0.2));
+    .flip-card-front h3 {
+      background: rgba(0,0,0,0.5);
+      padding: 10px 20px; border-radius: 8px; font-size: 1.6em; margin: 0;
     }
-    .card-back { transform: rotateY(180deg); }
-    .card-back h4 { margin-bottom:1rem; color:var(--gradient-start); }
-    .card-back p  { color:#666; text-align:center; }
+    .flip-card-back {
+      width: 300px;
+  height: 300px;
+  background-image: url('./3D\ blood\ donation\ image\ without\ humans\ \(2\).png');
+  background-size: cover;
+  background-position: center;
 
-    /* Recent Donors */
-    #recent { background: var(--third-color); color: #fff; }
-    #donor-list { list-style: none; max-width:400px; margin:auto; padding:0; }
+      color: var(--text-light);
+      transform: rotateY(180deg);
+      font-size: 1.1em; line-height: 1.4;
+    }
+    .flip-card-back p { margin: 0; }
+
+    /*— Backgrounds for Front Faces —*/
+    .sign-up    { background-image: url('https://source.unsplash.com/Cp-b69OOyN4/800x600'); }
+    .schedule   { background-image: url('https://source.unsplash.com/RbeuzdAmCOQ/800x600'); }
+    .donate     { background-image: url('https://source.unsplash.com/5CIBLanTBrE/800x600'); }
+    .celebrate  { background-image: url('https://source.unsplash.com/AF50O2MtgOU/800x600'); }
+
+    /*— Recent Donors —*/
+    #donor-list {
+      list-style: none; max-width: 400px; margin: auto; padding: 0;
+    }
     #donor-list li {
       background: rgba(255,255,255,0.1);
-      margin: 0.5rem 0; padding:0.75rem 1rem; border-radius:0.5rem;
-      display:flex; justify-content:space-between;
+      margin: 0.5rem 0; padding: 0.75rem 1rem; border-radius: 0.5rem;
+      display: flex; justify-content: space-between;
+      color: var(--text-light);
     }
 
-    /* Registration Form */
-    #register { background: var(--fourth-color); }
+    /*— Register Form (unchanged inner styles) —*/
+    #register {
+      background: var(--fourth-color);
+    }
     .register-form {
-      background: var(--color-bg); padding: var(--ruler);
-      max-width:360px; margin:auto; border-radius:var(--ruler);
+      background: var(--third-color);
+      padding: var(--ruler);
+      max-width: 360px; margin: auto; border-radius: var(--ruler);
       box-shadow:
-        inset 2px 2px 5px var(--color-shadow),
-        inset -5px -5px 10px var(--color-white),
-        0 8px 16px rgba(0,0,0,0.1);
-      perspective:800px; transform-style:preserve-3d;
+        inset 2px 2px 5px var(--shadow-dark),
+        inset -5px -5px 10px var(--shadow-light),
+        0 8px 16px var(--shadow-dark);
+      perspective: 800px; transform-style: preserve-3d;
+      transition: transform 0.3s;
     }
     .register-form:hover { transform: rotateY(5deg) scale(1.02); }
-    .register-form label { display:block; margin-bottom:1rem; font-weight:600; color: var(--gradient-end); }
+    .register-form label {
+      display: block; margin-bottom: 1rem; font-weight: 600;
+      color: var(--first-color);
+    }
     .register-form input,
     .register-form select,
     .register-form textarea {
-      width:100%; padding:1rem; margin-bottom:1.5rem; border:none; border-radius:360px;
-      background:var(--color-bg);
+      width: 100%; padding: 1rem; margin-bottom: 1.5rem;
+      border: none; border-radius: 360px; background: var(--third-color);
       box-shadow:
-        inset 2px 2px 5px var(--color-shadow),
-        inset -5px -5px 10px var(--color-white);
-      transition:box-shadow 0.2s, transform 0.2s;
+        inset 2px 2px 5px var(--shadow-dark),
+        inset -5px -5px 10px var(--shadow-light);
+      transition: box-shadow 0.2s, transform 0.2s;
     }
     .register-form input:focus,
     .register-form select:focus,
     .register-form textarea:focus {
       box-shadow:
-        inset 1px 1px 2px var(--color-shadow),
-        inset -1px -1px 2px var(--color-white);
+        inset 1px 1px 2px var(--shadow-dark),
+        inset -1px -1px 2px var(--shadow-light);
       transform: translateZ(2px);
     }
     .register-btn {
-      width:100%; padding:1rem; font-weight:600; color:var(--color-white);
-      background:var(--blood-gradient); border:none; border-radius:360px;
+      width: 100%; padding: 1rem; font-weight: 600;
+      color: var(--text-light); background: var(--blood-gradient);
+      border: none; border-radius: 360px;
       box-shadow:
-        -5px -5px 20px var(--color-white),
-        5px 5px 20px var(--color-shadow);
-      cursor:pointer; transition:box-shadow 0.2s, transform 0.2s;
+        -5px -5px 20px var(--shadow-light),
+        5px 5px 20px var(--shadow-dark);
+      cursor: pointer; transition: box-shadow 0.2s, transform 0.2s;
     }
     .register-btn:hover {
       box-shadow:
-        -2px -2px 5px var(--color-white),
-        2px 2px 5px var(--color-shadow);
+        -2px -2px 5px var(--shadow-light),
+        2px 2px 5px var(--shadow-dark);
       transform: translateY(-2px);
     }
     .register-btn:active {
       box-shadow:
-        inset 1px 1px 2px var(--color-shadow),
-        inset -1px -1px 2px var(--color-white);
+        inset 1px 1px 2px var(--shadow-dark),
+        inset -1px -1px 2px var(--shadow-light);
     }
 
-    /* Contact & Footer */
-    #contact p { text-align:center; color:#555; font-size:1rem; }
-    footer { background: var(--third-color); color:#aaa; text-align:center; padding:1.5rem; font-size:0.9rem; }
-    footer a { color: var(--color-red); font-weight:600; }
+    /*— Contact & Footer —*/
+    #contact p {
+      text-align: center; color: #555; font-size: 1rem;
+    }
+    footer {
+      background: var(--first-color);
+      color: var(--text-light);
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.9rem;
+    }
+    footer a {
+      color: var(--accent); font-weight: 600;
+    }
 
-    /* Back to Top */
+    /*— Back to Top —*/
     #backToTop {
-      position: fixed; bottom:1rem; right:1rem;
-      background: var(--gradient-end); color:#fff;
-      border:none; padding:0.75rem; border-radius:50%;
-      cursor:pointer; display:none; box-shadow:0 4px 8px rgba(0,0,0,0.3);
-      transition:transform 0.3s;
+      position: fixed; bottom: 1rem; right: 1rem;
+      background: var(--first-color); color: var(--text-light);
+      border: none; padding: 0.75rem; border-radius: 50%;
+      cursor: pointer; display: none;
+      box-shadow: 0 4px 8px var(--shadow-dark);
+      transition: transform 0.3s;
     }
-    #backToTop:hover { transform: translateY(-5px) rotateX(10deg); }
+    #backToTop:hover {
+      transform: translateY(-5px) rotateX(10deg);
+    }
   </style>
 </head>
 <body>
 
   <!-- Header -->
-  <header class="first-color">
+  <header>
     <div class="container">
       <h1>LifeStream</h1>
-      <nav>
-        <ul>
-          <li><a href="#home">Home</a></li>
-          <li><a href="#mission">Mission</a></li>
-          <li><a href="#process">How It Works</a></li>
-          <li><a href="#register">Register</a></li>
-          <li><a href="#recent">Donors</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </nav>
     </div>
   </header>
 
-  <!-- Hero Section -->
-  <section class="hero second-color" id="home">
+  <!-- Hero -->
+  <section class="hero" id="home">
     <video autoplay muted loop playsinline class="hero-video">
       <source src="./136458-764399870.mp4" type="video/mp4">
       Your browser does not support the video tag.
     </video>
     <div class="hero-content container">
-      <h2>Donate Blood, Save Lives</h2>
+      <h2 style="color: #8A0303;">Donate Blood, Save Lives</h2>
       <p>Your one pint can give three lives a second chance.</p>
       <button class="hero-btn" onclick="scrollToSection('register')">Become a Donor</button>
     </div>
   </section>
 
-  <!-- Mission Section -->
-  <section class="container third-color" id="mission">
+  <!-- Mission -->
+  <section class="container" id="mission">
     <h3>Our Mission</h3>
     <p>LifeStream bridges the gap between blood donors and those in need by organizing drives, raising awareness, and building a supportive community.</p>
   </section>
 
   <!-- How It Works -->
-  <section class="container fourth-color" id="process">
+  <section class="container" id="process">
     <h3>How It Works</h3>
-    <div class="steps" id="steps"></div>
+    <div class="card-container">
+      <div class="flip-card sign-up">
+        <div class="flip-card-inner">
+          <div class="flip-card-front sign-up">
+            <h3>Sign Up</h3>
+          </div>
+          <div class="flip-card-back">
+            <p style="color: #ff0404;background-color: #000000;">Create your account to join our community of lifesavers.</p>
+          </div>
+        </div>
+      </div>
+      <div class="flip-card schedule">
+        <div class="flip-card-inner">
+          <div class="flip-card-front schedule">
+            <h3>Schedule</h3>
+          </div>
+          <div class="flip-card-back">
+            <p style="color: #ff0404;background-color: #000000;">Pick a convenient date and place for your donation.</p>
+          </div>
+        </div>
+      </div>
+      <div class="flip-card donate">
+        <div class="flip-card-inner">
+          <div class="flip-card-front donate">
+            <h3>Donate</h3>
+          </div>
+          <div class="flip-card-back">
+            <p style="color: #ff0404;background-color: #000000;">Give blood to help patients in need—each pint counts.</p>
+          </div>
+        </div>
+      </div>
+      <div class="flip-card celebrate">
+        <div class="flip-card-inner">
+          <div class="flip-card-front celebrate">
+            <h3>Celebrate</h3>
+          </div>
+          <div class="flip-card-back">
+            <p style="color: #ff0404;background-color: #000000;">Be proud—your donation makes a real difference.</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- Recent Donors -->
-  <section class="container third-color" id="recent">
+  <section class="container" id="recent">
     <h3>Recent Donors</h3>
     <ul id="donor-list"></ul>
   </section>
 
-  <!-- Register Form -->
+  <!-- Register -->
   <section class="container" id="register">
     <h3>Become a Donor</h3>
     <form class="register-form" onsubmit="handleRegistration(event)">
@@ -340,34 +398,8 @@
   <!-- Back to Top -->
   <button id="backToTop" onclick="scrollToTop()">&uarr;</button>
 
-  <!-- Script -->
   <script>
-    // Dynamic Steps
-    const stepsData = [
-      { icon: 'https://img.icons8.com/ios-filled/100/ff4c4c/user.png', title: 'Sign Up', desc: 'Register in minutes to join our donor network.', color: 'first-color' },
-      { icon: 'https://img.icons8.com/ios-filled/100/ff4c4c/calendar.png', title: 'Schedule', desc: 'Choose your donation time and location.', color: 'second-color' },
-      { icon: 'https://th.bing.com/th/id/R.1607ea4ac502cb5426941b13ee1366e5?rik=fHj5kFQlM1YJpQ&riu=http%3a%2f%2fwww.pngmart.com%2ffiles%2f7%2fBlood-Donation-Transparent-Background.png&ehk=m%2bF%2fWpuajP0OXcU%2f%2f6eA%2fP%2fjoZLo9rDyU1thwvcDPxE%3d&risl=&pid=ImgRaw&r=0', title: 'Donate', desc: 'Visit the drive and donate safely under professional care.', color: 'third-color' },
-      { icon: 'https://img.icons8.com/ios-filled/100/ff4c4c/heart-with-pulse.png', title: 'Celebrate', desc: 'Feel proud—your donation helps up to three people.', color: 'fourth-color' }
-    ];
-    const stepsContainer = document.getElementById('steps');
-    stepsData.forEach(s => {
-      const card = document.createElement('div');
-      card.className = `card ${s.color}`;
-      card.innerHTML = `
-        <div class="card-inner">
-          <div class="card-face card-front">
-            <img src="${s.icon}" alt="${s.title}">
-          </div>
-          <div class="card-face card-back">
-            <h4>${s.title}</h4>
-            <p>${s.desc}</p>
-          </div>
-        </div>
-      `;
-      stepsContainer.appendChild(card);
-    });
-
-    // Render Recent Donors from localStorage
+    // Render Recent Donors
     function renderDonors() {
       const list = document.getElementById('donor-list');
       list.innerHTML = '';
@@ -378,50 +410,44 @@
         list.appendChild(li);
       });
     }
+    renderDonors();
 
-    // Handle Form Submission
-    function handleRegistration(event) {
-      event.preventDefault();
-      const name = document.getElementById('name').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const phone = document.getElementById('phone').value.trim();
-      const blood = document.getElementById('blood').value;
-      const notes = document.getElementById('notes').value.trim();
-
-      if (!name || !email || !phone || !blood) {
-        alert('Please fill all required fields.');
-        return;
+    // Handle Registration
+    function handleRegistration(e) {
+      e.preventDefault();
+      const d = {
+        name: e.target.name.value.trim(),
+        email: e.target.email.value.trim(),
+        phone: e.target.phone.value.trim(),
+        blood: e.target.blood.value,
+        notes: e.target.notes.value.trim()
+      };
+      if (!d.name || !d.email || !d.phone || !d.blood) {
+        return alert('Please fill all required fields.');
       }
-
-      const newDonor = { name, email, phone, blood, notes, date: new Date().toISOString() };
-      const donors = JSON.parse(localStorage.getItem('donors') || '[]');
-      donors.push(newDonor);
-      localStorage.setItem('donors', JSON.stringify(donors));
-      alert('Thank you for registering as a donor!');
-      event.target.reset();
+      const arr = JSON.parse(localStorage.getItem('donors') || '[]');
+      arr.push(d);
+      localStorage.setItem('donors', JSON.stringify(arr));
+      alert(`Thank you, ${d.name}! You’re now a donor.`);
+      e.target.reset();
       renderDonors();
       scrollToSection('recent');
     }
 
-    // Scroll To Section
+    // Smooth Scroll & Back to Top
     function scrollToSection(id) {
       document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
     }
-
-    // Scroll to Top
     function scrollToTop() {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-
-    // Show/Hide Back to Top Button
-    const backBtn = document.getElementById('backToTop');
+    const back = document.getElementById('backToTop');
     window.addEventListener('scroll', () => {
-      backBtn.style.display = window.scrollY > 300 ? 'block' : 'none';
+      back.style.display = window.scrollY > 300 ? 'block' : 'none';
     });
 
-    // Set Footer Year
+    // Live Year
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
-
 </body>
 </html>
